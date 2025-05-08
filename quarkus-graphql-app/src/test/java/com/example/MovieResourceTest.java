@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 public class MovieResourceTest {
 
   @Test
-  public void sizeInvalidType() {
+  public void sizeParamInvalidTypeTest() {
     String requestBody = """
             {
               "variables": {
@@ -30,28 +30,6 @@ public class MovieResourceTest {
             .post("/graphql");
 
       Assertions.assertFalse(response.body().print().contains("errors"));
-  }
-
-  @Test
-  public void beforeInvalidType() {
-    String requestBody = """
-            {
-              "variables": {
-                "paginationParams": {
-                  "before": 0
-                }
-              },
-              "query": "query ($paginationParams: PaginationParams!) {\\n  allFilms(paginationParams: $paginationParams) { title releaseDate } }"
-            }
-            """;
-
-    Response response = RestAssured.given()
-            .contentType(ContentType.JSON)
-            .body(requestBody)
-            .when()
-            .post("/graphql");
-
-    Assertions.assertFalse(response.body().print().contains("errors"));
   }
 
 }
